@@ -7,6 +7,7 @@ import time
 import serial
 import modbus_tk.defines as cst
 from modbus_tk import modbus_rtu
+from Calibrate.py import initial_specific_gravity # Importing the variable from Calibrate.py
 
 # Sensor address is 0x0C which is 12 in decimal
 sensor_address = 0x0C
@@ -49,6 +50,12 @@ def main():
   master.execute(sensor_address, cst.WRITE_SINGLE_REGISTER, 0x08, output_value=crval)
   time.sleep(0.1) # Wait 100 ms
 
+  print("Please run Calibrate.py prior to executing this script.")
+  print("If the sensor has not been calibrated, terminate this script and do so now.")
+
+
+  
+  
   try:
     while True:
       ser.flushInput()
@@ -61,21 +68,66 @@ def main():
       # Display register values
 #      print("data = ", data)
 
-      #00001100 bit 3 = 1 Sets trigger bit, triggers one measurement then resets bit 3 to 0; 12 in decimal
-      master.execute(sensor_address, cst.WRITE_SINGLE_REGISTER, 0x08, output_value=12)
-      time.sleep(0.5) # Wait 500 ms
+      calibrate = True
+      sum = 0 # Initialize sum to 0 before loop
+      previous_distance = 0 # Initialize first "measurement" to zero
+      average_distance = 0 # Initialize first "measurement" to zero
+      
+      for i in range(60):      
+         #00001100 bit 3 = 1 Sets trigger bit, triggers one measurement then resets bit 3 to 0; 12 in decimal
+         master.execute(sensor_address, cst.WRITE_SINGLE_REGISTER, 0x08, output_value=12)
+         time.sleep(0.5) # Wait 500 ms
 
-      # Read distance register
-      distance = master.execute(sensor_address, cst.READ_HOLDING_REGISTERS, 0x05, 1)
+         # Read distance register
+         distance = master.execute(sensor_address, cst.READ_HOLDING_REGISTERS, 0x05, 1)
 
-      # Divide by 10, one LSB is 0.1mm
-      distance = distance[0] / 10
+         # Divide by 10, one LSB is 0.1mm
+         distance = distance[0] / 10
+         # Print distance value in mm
+         #print(f"distance = {distance:.1f} mm")
+         sum = sum + distance 
 
-      # Print distance value in mm
-      print(f"distance = {distance:.1f} mm")
+         time.sleep(0.5) # Wait 500 ms
+      
+      avg_distance = sum / 60 # Find the average distance
 
-      time.sleep(5) # Wait 5 seconds
+      if calibrate is True:
+         first_distance = avg_distance # Record first measurement for later reference
+         reference_distance = avg_distance # Record a reference distance for later use
+         calibrate = False  # Set calibrate to false
+      
+      # Print average distance value in mm
+      print(f"distance = {avg_distance:.1f} mm")
 
+      # Read temperature register
+      temp = master.execute(sensor_address, cst.READ_HOLDING_REGISTERS, 0x06, 1)
+
+      time.sleep(0.2) # Wait 200 ms
+      
+      # Divide by 10, one LSB is 0.1℃
+      temp =  temp / 10.0
+
+      # Print temperature value in celsius
+      print(f"internal tempreture = {temp:.1f} C") 
+
+      # Find the difference in bobber height change i.e. (reference measurement - last measurement)
+      distance_difference = reference_distance - previous_distance
+
+      if distance_difference > SOME_VALUE_DETERMINED_BY_TESTING:
+
+        # THIS IF STATEMENT WILL FIND THE CHANGE IN SPECIFIC GRAVITY BASED ON THE CHANGE IN BOBBER DISTANCE
+
+        
+        # Set reference distance to most recent measurement because specific gravity has been updated
+        reference_distance = previous_distance
+        
+      
+      previous_distance = avg_distance # Set variable equal to previous distance measurement
+
+      
+      
+
+  
   except Exception as err:
     print(str(err))
 
