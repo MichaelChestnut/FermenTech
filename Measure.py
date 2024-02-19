@@ -50,11 +50,11 @@ def main():
   master.execute(sensor_address, cst.WRITE_SINGLE_REGISTER, 0x08, output_value=crval)
   time.sleep(0.1) # Wait 100 ms
 
-  print("Please run Calibrate.py prior to executing this script.")
-  print("If the sensor has not been calibrated, terminate this script and do so now.")
 
-
-  
+  if initial_specific_gravity == 0
+     print("USER ERROR")
+     print("Please run Calibrate.py prior to executing this script.")
+     sys.exit() # Terminate the script
   
   try:
     while True:
@@ -72,6 +72,7 @@ def main():
       sum = 0 # Initialize sum to 0 before loop
       previous_distance = 0 # Initialize first "measurement" to zero
       average_distance = 0 # Initialize first "measurement" to zero
+      current_specific_gravity = initial_specific_gravity # Initialize current gravity to intial obtained from calibration
       
       for i in range(60):      
          #00001100 bit 3 = 1 Sets trigger bit, triggers one measurement then resets bit 3 to 0; 12 in decimal
@@ -97,7 +98,7 @@ def main():
          calibrate = False  # Set calibrate to false
       
       # Print average distance value in mm
-      print(f"distance = {avg_distance:.1f} mm")
+      print(f"distance: {avg_distance:.1f} mm")
 
       # Read temperature register
       temp = master.execute(sensor_address, cst.READ_HOLDING_REGISTERS, 0x06, 1)
@@ -108,24 +109,30 @@ def main():
       temp =  temp / 10.0
 
       # Print temperature value in celsius
-      print(f"internal tempreture = {temp:.1f} C") 
+      print(f"internal tempreture: {temp:.1f} C") 
 
       # Find the difference in bobber height change i.e. (reference measurement - last measurement)
       distance_difference = reference_distance - previous_distance
 
-      if distance_difference > SOME_VALUE_DETERMINED_BY_TESTING:
+      distance_difference = abs(distance_difference)
+
+      if distance_difference > 5.0 # change was too substantail (I.E fruits were added and brew level rised)
+         # Set reference distance to most recent measurement because a variable has changed
+         reference_distance = previous_distance
+         pass
+        
+      else if distance_difference > SOME_VALUE_DETERMINED_BY_TESTING:
 
         # THIS IF STATEMENT WILL FIND THE CHANGE IN SPECIFIC GRAVITY BASED ON THE CHANGE IN BOBBER DISTANCE
-
+        current_specific_gravity = current_specific_gravity + SOME_VALUE_DETERMINED_BY_TESTING 
         
         # Set reference distance to most recent measurement because specific gravity has been updated
         reference_distance = previous_distance
-        
       
       previous_distance = avg_distance # Set variable equal to previous distance measurement
 
-      
-      
+      # Print current specific gravity value in grams per milliliter
+      print("Current Specific Gravity: {current_specific_gravity:.3f} g/mL")
 
   
   except Exception as err:
