@@ -37,6 +37,7 @@ ser = serial.Serial(port=serial_port,
                     parity=parity,
                     stopbits=stopbits)
 
+
 def main():
   master = modbus_rtu.RtuMaster(ser) # create modbus_rtu client based on serial connection
   master.set_timeout(5.0)  # Timeout after 5 seconds
