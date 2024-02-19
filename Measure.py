@@ -52,7 +52,7 @@ def main():
   time.sleep(0.1) # Wait 100 ms
 
 
-  if initial_specific_gravity == 0
+  if initial_specific_gravity == 0  # User has not calibrated the sensor yet
      print("USER ERROR")
      print("Please run Calibrate.py prior to executing this script.")
      sys.exit() # Terminate the script
@@ -112,13 +112,13 @@ def main():
       # Print temperature value in celsius
       print(f"internal tempreture: {temp:.1f} C") 
 
-      # Find the difference in bobber height change i.e. (reference measurement - last measurement)
-      distance_difference = reference_distance - previous_distance
+      # Find the difference in bobber height change i.e. (last measurement - reference measurement)
+      distance_difference = previous_distance - reference_distance
 
       distance_difference = abs(distance_difference)
 
       if distance_difference > 5.0 # change was too substantail (I.E fruits were added and brew level rised)
-         # Set reference distance to most recent measurement because a variable has changed
+         # Set reference distance to most recent measurement because brew level has changed, or there was an error
          reference_distance = previous_distance
          pass
         
