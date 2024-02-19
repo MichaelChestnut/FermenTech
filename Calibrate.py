@@ -1,4 +1,3 @@
-initial_specific_gravity = 0 # Initialize value to 0
 print("Please follow these steps to calibrate the FermenTech digital hydrometer.")
 print("A physical hydrometer is necessary to calibrate this sensor")
 print("Insert the physical hydrometer into the brew")
