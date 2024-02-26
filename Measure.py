@@ -87,9 +87,17 @@ def main():
          distance = distance[0] / 10
          # Print distance value in mm
          #print(f"distance = {distance:.1f} mm")
+
+
+        # ADD CODE TO FIlTER DISTANCE MEASUREMENTS
+        # I.E IF THE MEASUREMENT IS NOT CLOSE TO THE PREVIOUS MEASUREMENT, DISREGARD IT AND DO NOT ADD INTO THE AVERAGE
+        
          sum = sum + distance 
 
          time.sleep(0.5) # Wait 500 ms
+
+
+
       
       avg_distance = sum / 60 # Find the average distance
 
