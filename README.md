@@ -69,6 +69,31 @@ python3 Calibrate.py
 
 ## Running With Python
 
+After installing dependencies: 
+
+- Clone this repo to get necessary files: 
+```
+git clone https://github.com/MichaelChestnut/FermenTech.git
+```
+- Change into FermenTech directory: 
+```
+cd FermenTech
+```
+- Verify that permissions are set so that the script is executable by running: 
+```
+chmod +x Calibrate.py
+```
+```
+chmod +x Measure.py
+```
+
+- Execute the script:
+```
+python3 Measure.py
+```
+
+- Done!
+
 
 
 
