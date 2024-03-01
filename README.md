@@ -31,6 +31,17 @@
 
 ## Dependencies
 
+- Install pyserial: 
+```
+sudo pip3 install pyserial 
+```
+
+- Install modbus-tk:
+```
+sudo pip3 install modbus-tk 
+```
+
+
 
 
 ## Calibrating The Sensor
