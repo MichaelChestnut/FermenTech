@@ -115,15 +115,15 @@ python3 Measure.py
       ```
       sudo cp FermenTech.service /etc/systemd/system
       ```
-  - Modify Measure.sh to include the correct paths (located inside of the Systemctl directory): 
+- Modify Measure.sh to include the correct paths (located inside of the Systemctl directory): 
   ```
   nano FermenTech.sh
   ```
-  - Set file permissions for Measure.sh: 
+- Set file permissions for Measure.sh: 
   ```
   sudo chmod 744 FermenTech/Systemctl/FermenTech.sh
   ```
-  - If previous step is unsuccessful, here are potential solutions:
+   - If previous step is unsuccessful, here are potential solutions:
      - Change permissions further: 
      ```
      sudo chmod 755 FermenTech/Systemctl/FermenTech.sh
@@ -132,7 +132,7 @@ python3 Measure.py
      ```
      sudo chmod 755 FermenTech
      ```
-  - Enable the service: 
+- Enable the service: 
       ```
       sudo systemctl daemon-reload
       ```
@@ -140,17 +140,17 @@ python3 Measure.py
       sudo systemctl enable FermenTech.service
       ```
       
-  - Start the service: 
+- Start the service: 
   ```
   sudo systemctl start FermenTech.service
   ```
   
-  - Check the status of the service: 
+- Check the status of the service: 
   ```
   sudo systemctl status FermenTech.service
   ```
   
-  - Done! The service should now run on boot. 
+- Done! The service should now run on boot. 
 
 
 ## Common Errors
