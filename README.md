@@ -104,12 +104,14 @@ python3 Measure.py
 
 ## Implementing The Script as a Service
 
-- Create a systemd entry 
-      - Change into Systemctl directory: 
+- Create a systemd entry
+
+
+  - Change into Systemctl directory: 
       ```
       cd FermenTech/Systemctl
       ``` 
-      - Copy the .service file to correct location: 
+   - Copy the .service file to correct location: 
       ```
       sudo cp FermenTech.service /etc/systemd/system
       ```
