@@ -41,7 +41,15 @@ sudo pip3 install pyserial
 sudo pip3 install modbus-tk 
 ```
 
-
+- Install the GPIO package:
+   - On Raspbian: 
+   ```
+   sudo apt-get install rpi.gpio
+   ```
+   - On Ubuntu: 
+   ```
+   sudo apt install python3-lgpio
+   ```
 
 
 ## Calibrating The Sensor
