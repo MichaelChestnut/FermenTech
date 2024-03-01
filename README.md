@@ -102,11 +102,53 @@ python3 Measure.py
 
 
 
-
 ## Implementing The Script as a Service
 
-
-
+- Create a systemd entry 
+      - Change into Systemctl directory: 
+      ```
+      cd FermenTech/Systemctl
+      ``` 
+      - Copy the .service file to correct location: 
+      ```
+      sudo cp FermenTech.service /etc/systemd/system
+      ```
+  - Modify Measure.sh to include the correct paths (located inside of the Systemctl directory): 
+  ```
+  nano FermenTech.sh
+  ```
+  - Set file permissions for Measure.sh: 
+  ```
+  sudo chmod 744 FermenTech/Systemctl/FermenTech.sh
+  ```
+  - If previous step is unsuccessful, here are potential solutions:
+     - Change permissions further: 
+     ```
+     sudo chmod 755 FermenTech/Systemctl/FermenTech.sh
+     ```
+     - Change permissions for the directory as well: 
+     ```
+     sudo chmod 755 FermenTech
+     ```
+  - Enable the service: 
+      ```
+      sudo systemctl daemon-reload
+      ```
+      ```
+      sudo systemctl enable FermenTech.service
+      ```
+      
+  - Start the service: 
+  ```
+  sudo systemctl start FermenTech.service
+  ```
+  
+  - Check the status of the service: 
+  ```
+  sudo systemctl status FermenTech.service
+  ```
+  
+  - Done! The service should now run on boot. 
 
 
 ## Common Errors
