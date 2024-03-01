@@ -24,6 +24,11 @@
 
    Voltage booster to converse pi4's 5v output to a suitable 7v-15v for the URM14 
 
+## Wiring Schematic
+
+
+<img width="785" alt="Screen Shot 2024-02-27 at 11 08 19 AM" src="https://github.com/MichaelChestnut/FermenTech/assets/72172361/287015cc-f51c-48b5-af59-3d350bb9bc22">
+
 
 
 # Using The Sensor
