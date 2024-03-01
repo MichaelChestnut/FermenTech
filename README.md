@@ -45,6 +45,16 @@ sudo pip3 install modbus-tk
 
 
 ## Calibrating The Sensor
+- Execute calibration script:
+```
+python3 Calibrate.py 
+```
+
+- Follow instructions provided by script
+
+- Tip for reading hydrometer:
+
+   ![image](https://github.com/MichaelChestnut/FermenTech/assets/72172361/54cb42fd-aea1-44ee-85d8-aa68b97ad962)
 
 
 
