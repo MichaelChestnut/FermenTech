@@ -152,7 +152,6 @@ python3 Measure.py
   
 - Done! The service should now run on boot. 
 
-
 ## Common Errors
 
 
@@ -160,3 +159,41 @@ python3 Measure.py
 
 
 ## Notes
+
+
+
+
+
+## Telegraf
+
+
+
+
+## Grafana
+
+Steps to begin setting up a dashboard to display the data from the influxDB database. For official instructions, refer to the documenation here: https://grafana.com/docs/grafana/latest/
+
+1. Open a browser and access port 3000 of the device that the database and Grafana instance are running on
+   <img width="413" alt="Screen Shot 2023-05-22 at 1 47 13 PM" src="https://github.com/NAU-IoT/CSVtoSQL/assets/72172361/6a7c722f-6b13-4bf4-a1e6-6994bcdc0bbb">
+   
+2. Navigate to the "Add Data Source" page and add InfluxDB
+   <img width="1006" alt="Screen Shot 2024-03-20 at 1 35 44 PM" src="https://github.com/MichaelChestnut/FermenTech/assets/72172361/948a8666-9a43-4dc8-a0aa-d5ddc8a2874b">
+
+
+3. Fill out necessary fields, scroll to the bottom and click "Save and Test"
+
+   <img width="311" alt="Screen Shot 2024-03-20 at 1 38 08 PM" src="https://github.com/MichaelChestnut/FermenTech/assets/72172361/af99b935-34bb-4c5c-ac03-822e2bfa4289">
+
+5. Back on the home page, click the plus and select "New dashboard" from the dropdown menu and select "New visualization"
+   <img width="1390" alt="Screen Shot 2023-05-22 at 2 04 33 PM" src="https://github.com/NAU-IoT/CSVtoSQL/assets/72172361/a5e07160-cab1-4928-9dbc-838829a5bfa6">
+
+6.
+   1) Select type of visualization. This example is comparing Power Consumption of a load against time using MySQL, but you will use flux instead.
+   2) Switch from builder to code under the query section.
+   3) Next, write your query.
+   4) Next, hit run query.
+   5) Finally, if you are satisfied with the look of your graph, click Apply.
+   <img width="1361" alt="Screen Shot 2023-05-22 at 2 07 56 PM" src="https://github.com/NAU-IoT/CSVtoSQL/assets/72172361/ac0704a6-fa4c-4b92-be9d-83d15012e10a">
+
+
+
