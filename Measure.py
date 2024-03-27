@@ -8,19 +8,21 @@ import serial
 import modbus_tk.defines as cst
 from modbus_tk import modbus_rtu
 from Calibrate.py import initial_specific_gravity # Importing the variable from Calibrate.py
+from googleapiclient.discovery import build  
+from httplib2 import Http  
+from oauth2client import file, client, tools  
+from oauth2client.service_account import ServiceAccountCredentials  
+import datetime
+import random
 
-# Sensor address is 0x0C which is 12 in decimal
-sensor_address = 0x0C
+sensor_address = 0x0C # Sensor address is 0x0C which is 12 in decimal
 #print(f"sensor_address: {sensor_address}")
-
-# Control register address is 0x08 which is 8 in decimal
-control_register = 0x08
+control_register = 0x08 # Control register address is 0x08 which is 8 in decimal
 #print(f"control_register: {control_register}")
 
 # 00000100 bit 2 = 1 Sets measure mode bit (passive detection) ; 4 in decimal
 # 00000000 bit 0 = 0 Selects internal temperature compensation
 # 00000000 bit 1 = 0 enables temperature compensation function
-
 sensor_baudrate = 19200
 
 # Define serial port settings
@@ -36,6 +38,29 @@ ser = serial.Serial(port=serial_port,
                     bytesize=bytesize,
                     parity=parity,
                     stopbits=stopbits)
+
+# Google spreadsheet ID
+MY_SPREADSHEET_ID = 'ID_HERE'
+
+def update_sheet(sheetname, spec_grav, temperature):  
+    # authentication, authorization step
+    SCOPES = 'https://www.googleapis.com/auth/spreadsheets'
+    creds = ServiceAccountCredentials.from_json_keyfile_name( 
+            'KEYFILE_GOES_HERE.json', SCOPES)
+    service = build('sheets', 'v4', http=creds.authorize(Http()))
+
+    # Call the Sheets API, append the next row of sensor data
+    # values is the array of rows we are updating, its a single row
+    values =[ [ str(datetime.datetime.now()),
+            spec_grav, temperature ] ]
+    body = { 'values': values }
+    # call the append API to perform the operation
+    result = service.spreadsheets().values().append(
+                spreadsheetId=MY_SPREADSHEET_ID,
+                range='!A1:C1',
+                valueInputOption='USER_ENTERED',
+                insertDataOption='INSERT_ROWS',
+                body=body).execute()
 
 
 def main():
@@ -140,10 +165,17 @@ def main():
       
       previous_distance = avg_distance # Set variable equal to previous distance measurement
 
+      currentDandT = datetime.now().strftime("%Y-%m-%d %H:%M:%S") # Current date and time, Use this line for telegraf
+
       # Print current specific gravity value in grams per milliliter
       print("Current Specific Gravity: {current_specific_gravity:.3f} g/mL")
 
-  
+      update_sheet('SHEET_NAME_HERE', spec_grav, temperature)
+
+
+      output = currentDandT + f",{spec_grav}" + f",{temperature}"
+      print(output)
+
   except Exception as err:
     print(str(err))
 
