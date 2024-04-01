@@ -111,7 +111,7 @@ python3 Measure.py
 
 
 
-## Telegraf
+## Running with Telegraf
 
 - Telegraf installation:
 ```
