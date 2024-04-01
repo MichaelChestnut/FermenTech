@@ -328,6 +328,7 @@ This section will explain how to set up the google sheets api for cloud backup o
 
 - Go to OAuth consent screen, create new and fill out required fields.
    - No scopes are required
+   - Select External
 <img width="815" alt="Screen Shot 2024-04-01 at 1 39 37 PM" src="https://github.com/MichaelChestnut/FermenTech/assets/72172361/4853ca14-3b64-47d5-93b5-f7a6f42fd18e">
 
 
