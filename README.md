@@ -344,6 +344,6 @@ This section will explain how to set up the google sheets api for cloud backup o
 
 - Save the JSON keyfile to your computer and rename as FermentechKey.JSON
 - Copy the keyfile to the raspberry pi into the same directory as the executable code
-- 
+- Done!
 
 
