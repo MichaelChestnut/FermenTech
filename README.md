@@ -297,7 +297,14 @@ Listed below are steps to begin setting up a dashboard to display the data from 
 
 ## Google Sheets
 
+This section will explain how to set up the google sheets api for cloud backup of data.
 
+- Go to google cloud
+  ```
+  https://console.cloud.google.com/
+  ```
+
+  
 
 
 
