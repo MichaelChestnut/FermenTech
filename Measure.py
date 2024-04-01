@@ -84,7 +84,7 @@ def main():
      sys.exit() # Terminate the script
   
   try:
-    if True:
+    while True:
       ser.flushInput()
       ser.baudrate = sensor_baudrate
 
