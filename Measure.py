@@ -82,7 +82,9 @@ def main():
      print("USER ERROR")
      print("Please run Calibrate.py prior to executing this script.")
      sys.exit() # Terminate the script
-  
+
+  calibrate = True  # correct spot???
+
   try:
     while True:
       ser.flushInput()
@@ -95,7 +97,7 @@ def main():
       # Display register values
 #      print("data = ", data)
 
-      calibrate = True
+      # calibrate = True  # Wrong spot??
       sum = 0 # Initialize sum to 0 before loop
       previous_distance = 0 # Initialize first "measurement" to zero
       average_distance = 0 # Initialize first "measurement" to zero
