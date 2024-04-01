@@ -141,7 +141,7 @@ def main():
       previous_distance = avg_distance # Set variable equal to previous distance measurement
 
       # Print current specific gravity value in grams per milliliter
-      print("Current Specific Gravity: {current_specific_gravity:.3f} g/mL")
+      print(f"Current Specific Gravity: {current_specific_gravity:.3f} g/mL")
 
   
   except Exception as err:
