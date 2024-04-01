@@ -141,7 +141,7 @@ Sudo mv <directory> /opt
 - Generate config file
 - Take generated token and place in config file on machine under test
 - Put config file in /etc/telegraf/telegraf.d/CONFIG_NAME.conf
-- Test telegraph user: sudo -u telegraf /opt/YOUR_DIRECTORY/YOUR_EXECUTABLE.sh 
+- Test telegraph user: sudo -u telegraf /opt/YOUR_DIRECTORY/YOUR_EXECUTABLE.py 
 - If error: serial.serialutil.SerialException: [Errno 13] could not open port /dev/ttyUSB0: [Errno 13] Permission denied: '/dev/ttyUSB0'
    - Use command:
   ```
