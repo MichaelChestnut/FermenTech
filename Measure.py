@@ -1,4 +1,5 @@
-# code appropriated from https://wiki.dfrobot.com/SKU_DFR0824_RS485_Expansion_HAT_for_Raspberry_Pi
+# URM14 functional code appropriated from https://wiki.dfrobot.com/SKU_DFR0824_RS485_Expansion_HAT_for_Raspberry_Pi
+# Google sheets API code appropriated from http://www.whatimade.today/log-sensor-data-straight-to-google-sheets-from-a-raspberry-pi-zero-all-the-python-code/
 
 from __future__ import print_function
 import sys
@@ -39,14 +40,14 @@ ser = serial.Serial(port=serial_port,
                     parity=parity,
                     stopbits=stopbits)
 
-# Google spreadsheet ID
+# Google spreadsheet ID, can be found in google sheet URL: https://docs.google.com/spreadsheets/d/SPREADSHEETID/edit#gid=0
 MY_SPREADSHEET_ID = 'ID_HERE'
 
 def update_sheet(sheetname, spec_grav, temperature):  
     # authentication, authorization step
     SCOPES = 'https://www.googleapis.com/auth/spreadsheets'
     creds = ServiceAccountCredentials.from_json_keyfile_name( 
-            'KEYFILE_GOES_HERE.json', SCOPES)
+            'FermentechKey.json', SCOPES)
     service = build('sheets', 'v4', http=creds.authorize(Http()))
 
     # Call the Sheets API, append the next row of sensor data
