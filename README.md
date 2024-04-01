@@ -189,7 +189,7 @@ Sudo mv <directory> /opt
 - To generate Telegraf config file:
 - There is an example configuration file located in this repository, but here are steps to generate a new one. This is required as you need a unique key for each instance data transfer on a host. 
    - Access telegraf on device through a web search bar, Telegraf on port 8086
-   - example: device_hostname_or_IPaddress:8086
+   - example: device_DNS_or_IPaddress:8086
 - Select exec source 
 - Generate config file
 - Take generated token and place in config file on machine under test
