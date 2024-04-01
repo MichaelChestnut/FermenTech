@@ -132,14 +132,14 @@ python3 Measure.py
      ```
      sudo chmod 755 FermenTech
      ```
-- Enable the service: 
-      ```
-      sudo systemctl daemon-reload
-      ```
-  
-      ```
-      sudo systemctl enable FermenTech.service
-      ```
+- Reload services:
+  ```
+  sudo systemctl daemon-reload
+  ```
+- Enable the service:
+  ```
+  sudo systemctl enable FermenTech.service
+  ```
       
 - Start the service: 
   ```
