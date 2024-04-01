@@ -41,7 +41,7 @@ ser = serial.Serial(port=serial_port,
                     stopbits=stopbits)
 
 # Google spreadsheet ID, can be found in google sheet URL: https://docs.google.com/spreadsheets/d/SPREADSHEETID/edit#gid=0
-MY_SPREADSHEET_ID = 'ID_HERE'
+MY_SPREADSHEET_ID = '19bpbvqJYwY_Cslh-34vE48LasRu3WjDB2dd8Y_JoiOY'
 
 def update_sheet(sheetname, spec_grav, temperature):  
     # authentication, authorization step
