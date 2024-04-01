@@ -187,7 +187,7 @@ sudo apt-get update && sudo apt-get install telegraf
 Sudo mv <directory> /opt
 ```
 - To generate Telegraf config file:
-- There is an example congiguration file located in this repository, but here are steps to generate a new one. This is required as you need a unique key for each instance of a script. 
+- There is an example configuration file located in this repository, but here are steps to generate a new one. This is required as you need a unique key for each instance data transfer on a host. 
    - Access telegraf on device through a web search bar, Telegraf on port 8086
    - example: device_hostname_or_IPaddress:8086
 - Select exec source 
