@@ -127,7 +127,7 @@ echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https
 sudo apt-get update && sudo apt-get install telegraf
 ```
 
-- For telegraf to work, data must be printed to Standard Output
+- For telegraf to work, data must be printed to Standard Output. In this case, Data must be in CSV format.
 
 - Move directory into /opt:
 ```
