@@ -166,7 +166,66 @@ python3 Measure.py
 
 ## Telegraf
 
+- Telegraf installation:
+```
+curl -s https://repos.influxdata.com/influxdata-archive_compat.key > influxdata-archive_compat.key
+```
+```
+echo '393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c influxdata-archive_compat.key' | sha256sum -c && cat influxdata-archive_compat.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null
+```
+```
+echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list
+```
+```
+sudo apt-get update && sudo apt-get install telegraf
+```
 
+- For telegraf to work, data must be printed to Standard Output
+
+- Move directory into /opt:
+```
+Sudo mv <directory> /opt
+```
+- To get Telegraf config file:
+   - Access telegraf on device through a web search bar, Telegraf on port 8086
+   - example: device_hostname_or_IPaddress:8086
+- Select exec source 
+- Generate config file
+- Take generated token and place in config file on machine under test
+- Put config file in /etc/telegraf/telegraf.d/CONFIG_NAME.conf
+- Test telegraph user: sudo -u telegraf /opt/YOUR_DIRECTORY/YOUR_EXECUTABLE.sh 
+- If error: serial.serialutil.SerialException: [Errno 13] could not open port /dev/ttyUSB0: [Errno 13] Permission denied: '/dev/ttyUSB0'
+   - Use command:
+  ```
+  sudo usermod -aG dialout telegraf
+  ```
+  
+- To give telegraf i2c permissions:
+  ```
+  sudo groupadd i2c
+  ```
+  ```
+  sudo chown :i2c /dev/i2c-1
+  ```
+  ```
+  sudo chmod g+rw /dev/i2c-1
+  ```
+  ```
+  sudo usermod -aG i2c telegraf
+  ```
+
+- Enable telegraf service:
+```
+sudo systemctl enable telegraf
+```
+- Start telegraf service:
+```
+sudo systemctl start telegraf
+```
+- Check telegraf status:
+```
+sudo systemctl status telegraf
+```
 
 
 ## Using Grafana to display data
