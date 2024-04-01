@@ -132,6 +132,7 @@ def main():
       if calibrate is True:
          first_distance = avg_distance # Record first measurement for later reference
          reference_distance = avg_distance # Record a reference distance for later use
+         previous_distance = avg_distance # make previous distance equal to first measurment to prevent error
          calibrate = False  # Set calibrate to false
       
       # Print average distance value in mm
