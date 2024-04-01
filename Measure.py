@@ -84,7 +84,7 @@ def main():
      sys.exit() # Terminate the script
   
   try:
-    while True:
+    if True:
       ser.flushInput()
       ser.baudrate = sensor_baudrate
 
@@ -169,7 +169,7 @@ def main():
       currentDandT = datetime.now().strftime("%Y-%m-%d %H:%M:%S") # Current date and time, Use this line for telegraf
 
       # Print current specific gravity value in grams per milliliter
-      print("Current Specific Gravity: {current_specific_gravity:.3f} g/mL")
+      #print("Current Specific Gravity: {current_specific_gravity:.3f} g/mL")
 
       update_sheet('FermenTech', spec_grav, temperature)
 
