@@ -169,7 +169,45 @@ python3 Measure.py
 
 
 
-## Grafana
+## Using Grafana to display data
+
+NOTES: 
+ - These instructions use ubuntu installation, for other OS, refer to https://grafana.com/docs/grafana/latest/setup-grafana/installation/ 
+ - These instructions assume you are installing grafana on the same device on which the database is located
+
+STEPS:
+- Install required packages 
+```
+sudo apt-get install -y apt-transport-https software-properties-common wget
+```
+- Download the Grafana repository signing key 
+```
+sudo wget -q -O /usr/share/keyrings/grafana.key https://apt.grafana.com/gpg.key
+```
+- Add a repository for stable releases: 
+```
+echo "deb [signed-by=/usr/share/keyrings/grafana.key] https://apt.grafana.com stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+```
+- Update the list of available packages: 
+```
+sudo apt-get update
+```
+- Install the latest OSS release: 
+```
+sudo apt-get install grafana
+```
+- Enable the Grafana service to run on boot: 
+```
+sudo systemctl enable grafana-server.service
+```
+- Start the Grafana service: 
+```
+sudo systemctl start grafana-server.service
+```
+- Check the status of the Grafana service to ensure it is running: 
+```
+sudo systemctl status grafana-server.service
+```
 
 Listed below are steps to begin setting up a dashboard to display the data from the influxDB database. For official instructions, refer to the documenation here: https://grafana.com/docs/grafana/latest/
 
