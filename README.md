@@ -329,3 +329,21 @@ This section will explain how to set up the google sheets api for cloud backup o
 - Go to OAuth consent screen, create new and fill out required fields.
    - No scopes are required
 <img width="815" alt="Screen Shot 2024-04-01 at 1 39 37 PM" src="https://github.com/MichaelChestnut/FermenTech/assets/72172361/4853ca14-3b64-47d5-93b5-f7a6f42fd18e">
+
+
+- Access Service Accounts under IAM and Admin
+   - Copy the email listed in this tab:
+<img width="819" alt="Screen Shot 2024-04-01 at 1 42 54 PM" src="https://github.com/MichaelChestnut/FermenTech/assets/72172361/a5abe997-48c1-4b3a-bd7f-64525d339e31">
+
+- Go to google sheet of interest and paste this email in the share option:
+<img width="486" alt="Screen Shot 2024-04-01 at 1 44 50 PM" src="https://github.com/MichaelChestnut/FermenTech/assets/72172361/6de28306-a5e5-43f5-b9ea-597fa41fb5a4">
+
+- Within Service Accounts, access the Keys tab and create a new key:
+     - When prompted, select JSON
+<img width="745" alt="Screen Shot 2024-04-01 at 1 45 28 PM" src="https://github.com/MichaelChestnut/FermenTech/assets/72172361/90bebe2b-e604-4801-b72b-7e030f0277e9">
+
+- Save the JSON keyfile to your computer and rename as FermentechKey.JSON
+- Copy the keyfile to the raspberry pi into the same directory as the executable code
+- 
+
+
