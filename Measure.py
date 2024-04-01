@@ -171,7 +171,7 @@ def main():
       # Print current specific gravity value in grams per milliliter
       print("Current Specific Gravity: {current_specific_gravity:.3f} g/mL")
 
-      update_sheet('SHEET_NAME_HERE', spec_grav, temperature)
+      update_sheet('FermenTech', spec_grav, temperature)
 
 
       output = currentDandT + f",{spec_grav}" + f",{temperature}"
