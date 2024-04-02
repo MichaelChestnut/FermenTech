@@ -113,7 +113,9 @@ python3 Measure.py
 
 ## Running with Telegraf
 
-- Telegraf installation:
+NOTE: For telegraf to work, data must be printed to Standard Output. In this case, Data must be in CSV format.
+
+### Telegraf installation:
 ```
 curl -s https://repos.influxdata.com/influxdata-archive_compat.key > influxdata-archive_compat.key
 ```
@@ -127,21 +129,38 @@ echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https
 sudo apt-get update && sudo apt-get install telegraf
 ```
 
-- For telegraf to work, data must be printed to Standard Output. In this case, Data must be in CSV format.
+- Access telegraf on device through a web search bar, Telegraf on port 8086
+   - example: device_DNS_or_IPaddress:8086
+<img width="442" alt="Screen Shot 2024-04-01 at 4 58 25 PM" src="https://github.com/MichaelChestnut/FermenTech/assets/72172361/47c92893-3278-4157-8d8f-35af7faa402f">
 
-- Move directory into /opt:
+- Create bucket in InfluxDB for data:
+<img width="1270" alt="Screen Shot 2024-04-01 at 5 01 08 PM" src="https://github.com/MichaelChestnut/FermenTech/assets/72172361/c4323489-cdb2-45e1-9267-8a1b4f9444d0">
+
+### To generate Telegraf config file:
+- This is a simplified explanation. Official Telegraf configuration file documentation can be found here: https://docs.influxdata.com/telegraf/v1/configuration/
+- There is an example configuration file located in this repository, but here are steps to generate a new one. This is required as you need a unique key for each instance of data transfer on a host.
+
+- Click create configuration:
+<img width="1260" alt="Screen Shot 2024-04-01 at 5 02 05 PM" src="https://github.com/MichaelChestnut/FermenTech/assets/72172361/df2aa67c-ea8d-4a8a-a20f-aedfe66ba831">
+- Select the bucket and find exec source:
+
+- Generate config file:
+
+- Copy generated token for later:
+
+- Erase auto generated config file in telegraf and paste in the example configuration found in this repository:
+
+- Insert generated token into configuration file:
+  
+- Copy new config file to raspberry pi at /etc/telegraf/telegraf.d/CONFIG_NAME.conf:
+
+### Final Telegraf Set Up:
+
+
+- Now that the configuration is done, Move working directory (containing measuring/executing code) into /opt:
 ```
 Sudo mv <directory> /opt
 ```
-- To generate Telegraf config file:
-- This is a simplified explanation. Official Telegraf configuration file documentation can be found here: https://docs.influxdata.com/telegraf/v1/configuration/
-- There is an example configuration file located in this repository, but here are steps to generate a new one. This is required as you need a unique key for each instance data transfer on a host. 
-   - Access telegraf on device through a web search bar, Telegraf on port 8086
-   - example: device_DNS_or_IPaddress:8086
-- Select exec source 
-- Generate config file
-- Take generated token and place in config file on machine under test
-- Put config file in /etc/telegraf/telegraf.d/CONFIG_NAME.conf
 - Test telegraph user: sudo -u telegraf /opt/YOUR_DIRECTORY/YOUR_EXECUTABLE.py 
 - If error: serial.serialutil.SerialException: [Errno 13] could not open port /dev/ttyUSB0: [Errno 13] Permission denied: '/dev/ttyUSB0'
    - Use command:
