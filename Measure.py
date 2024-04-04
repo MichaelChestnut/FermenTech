@@ -7,7 +7,7 @@ import time
 import serial
 import modbus_tk.defines as cst
 from modbus_tk import modbus_rtu
-from Calibrate.py import initial_specific_gravity # Importing the variable from Calibrate.py
+from Calibrate import initial_specific_gravity # Importing the variable from Calibrate.py
 
 # Sensor address is 0x0C which is 12 in decimal
 sensor_address = 0x0C
@@ -52,7 +52,7 @@ def main():
   time.sleep(0.1) # Wait 100 ms
 
 
-  if initial_specific_gravity == 0  # User has not calibrated the sensor yet
+  if initial_specific_gravity == 0:  # User has not calibrated the sensor yet
      print("USER ERROR")
      print("Please run Calibrate.py prior to executing this script.")
      sys.exit() # Terminate the script
@@ -115,25 +115,25 @@ def main():
       time.sleep(0.2) # Wait 200 ms
       
       # Divide by 10, one LSB is 0.1℃
-      temp =  temp / 10.0
+    #  temp =  temp / 10.0
 
       # Print temperature value in celsius
-      print(f"internal tempreture: {temp:.1f} C") 
+    #  print(f"internal tempreture: {temp:.1f} C") 
 
       # Find the difference in bobber height change i.e. (last measurement - reference measurement)
       distance_difference = previous_distance - reference_distance
 
       distance_difference = abs(distance_difference)
 
-      if distance_difference > 5.0 # change was too substantail (I.E fruits were added and brew level rised)
+      if distance_difference > 5.0: # change was too substantail (I.E fruits were added and brew level rised)
          # Set reference distance to most recent measurement because brew level has changed, or there was an error
          reference_distance = previous_distance
          pass
         
-      else if distance_difference > SOME_VALUE_DETERMINED_BY_TESTING:
+      elif distance_difference >= 1.0:
 
         # THIS IF STATEMENT WILL FIND THE CHANGE IN SPECIFIC GRAVITY BASED ON THE CHANGE IN BOBBER DISTANCE
-        current_specific_gravity = current_specific_gravity + SOME_VALUE_DETERMINED_BY_TESTING 
+        current_specific_gravity = current_specific_gravity + .002831 
         
         # Set reference distance to most recent measurement because specific gravity has been updated
         reference_distance = previous_distance
@@ -141,8 +141,7 @@ def main():
       previous_distance = avg_distance # Set variable equal to previous distance measurement
 
       # Print current specific gravity value in grams per milliliter
-      print(f"Current Specific Gravity: {current_specific_gravity:.3f} g/mL")
-
+      print(current_specific_gravity)
   
   except Exception as err:
     print(str(err))
