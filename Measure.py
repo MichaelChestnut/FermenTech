@@ -107,7 +107,6 @@ def main():
       num_measurements = 15 # Target measurements is 60
       last_measurement = 0 # Initialize to zero
       initial_measurement = 0 # Initialize to zero
-      previous_distance = 0 # Initialize first "measurement" to zero
       average_distance = 0 # Initialize first "measurement" to zero
       current_specific_gravity = initial_specific_gravity # Initialize current gravity to intial obtained from calibration
 
