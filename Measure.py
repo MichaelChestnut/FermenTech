@@ -173,6 +173,14 @@ def main():
 
       distance_difference = abs(distance_difference)
 
+
+      if ignored_count > 10:
+         pass # Do not update previous_distance variable
+
+      else:
+         previous_distance = avg_distance # Set variable equal to previous distance measurement
+
+      
       if distance_difference > 5.0: # change was too substantail (I.E fruits were added and brew level rised)
          # Set reference distance to most recent measurement because brew level has changed, or there was an error
          reference_distance = previous_distance
@@ -191,12 +199,12 @@ def main():
       else:
          pass
 
+# DELETE LATER 
+#      if ignored_count > 10:
+#         pass # Do not update previous_distance variable
 
-      if ignored_count > 10:
-         pass # Do not update previous_distance variable
-
-      else:
-         previous_distance = avg_distance # Set variable equal to previous distance measurement
+#      else:
+#         previous_distance = avg_distance # Set variable equal to previous distance measurement
 
       currentDandT = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") # Current date and time, Use this line for telegraf
 
