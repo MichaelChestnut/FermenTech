@@ -1,4 +1,5 @@
-# code appropriated from https://wiki.dfrobot.com/SKU_DFR0824_RS485_Expansion_HAT_for_Raspberry_Pi
+# URM14 functional code appropriated from https://wiki.dfrobot.com/SKU_DFR0824_RS485_Expansion_HAT_for_Raspberry_Pi
+# Google sheets API code appropriated from http://www.whatimade.today/log-sensor-data-straight-to-google-sheets-from-a-raspberry-pi-zero-all-the-python-code/
 
 from __future__ import print_function
 import sys
@@ -8,19 +9,21 @@ import serial
 import modbus_tk.defines as cst
 from modbus_tk import modbus_rtu
 from Calibrate import initial_specific_gravity # Importing the variable from Calibrate.py
+from googleapiclient.discovery import build  
+from httplib2 import Http  
+from oauth2client import file, client, tools  
+from oauth2client.service_account import ServiceAccountCredentials  
+import datetime
+import random
 
-# Sensor address is 0x0C which is 12 in decimal
-sensor_address = 0x0C
+sensor_address = 0x0C # Sensor address is 0x0C which is 12 in decimal
 #print(f"sensor_address: {sensor_address}")
-
-# Control register address is 0x08 which is 8 in decimal
-control_register = 0x08
+control_register = 0x08 # Control register address is 0x08 which is 8 in decimal
 #print(f"control_register: {control_register}")
 
 # 00000100 bit 2 = 1 Sets measure mode bit (passive detection) ; 4 in decimal
 # 00000000 bit 0 = 0 Selects internal temperature compensation
 # 00000000 bit 1 = 0 enables temperature compensation function
-
 sensor_baudrate = 19200
 
 # Define serial port settings
@@ -36,6 +39,29 @@ ser = serial.Serial(port=serial_port,
                     bytesize=bytesize,
                     parity=parity,
                     stopbits=stopbits)
+
+# Google spreadsheet ID, can be found in google sheet URL: https://docs.google.com/spreadsheets/d/SPREADSHEETID/edit#gid=0
+MY_SPREADSHEET_ID = '19bpbvqJYwY_Cslh-34vE48LasRu3WjDB2dd8Y_JoiOY'
+
+def update_sheet(sheetname, spec_grav, temperature):  
+    # authentication, authorization step
+    SCOPES = 'https://www.googleapis.com/auth/spreadsheets'
+    creds = ServiceAccountCredentials.from_json_keyfile_name( 
+            'FermentechKey.json', SCOPES)
+    service = build('sheets', 'v4', http=creds.authorize(Http()))
+
+    # Call the Sheets API, append the next row of sensor data
+    # values is the array of rows we are updating, its a single row
+    values =[ [ str(datetime.datetime.now()),
+            spec_grav, temperature ] ]
+    body = { 'values': values }
+    # call the append API to perform the operation
+    result = service.spreadsheets().values().append(
+                spreadsheetId=MY_SPREADSHEET_ID,
+                range='!A1:C1',
+                valueInputOption='USER_ENTERED',
+                insertDataOption='INSERT_ROWS',
+                body=body).execute()
 
 
 def main():
@@ -56,7 +82,9 @@ def main():
      print("USER ERROR")
      print("Please run Calibrate.py prior to executing this script.")
      sys.exit() # Terminate the script
-  
+
+  calibrate = True  # correct spot???
+
   try:
     while True:
       ser.flushInput()
@@ -69,7 +97,7 @@ def main():
       # Display register values
 #      print("data = ", data)
 
-      calibrate = True
+      # calibrate = True  # Wrong spot??
       sum = 0 # Initialize sum to 0 before loop
       previous_distance = 0 # Initialize first "measurement" to zero
       average_distance = 0 # Initialize first "measurement" to zero
@@ -104,6 +132,7 @@ def main():
       if calibrate is True:
          first_distance = avg_distance # Record first measurement for later reference
          reference_distance = avg_distance # Record a reference distance for later use
+         previous_distance = avg_distance # make previous distance equal to first measurment to prevent error
          calibrate = False  # Set calibrate to false
       
       # Print average distance value in mm
@@ -140,9 +169,16 @@ def main():
       
       previous_distance = avg_distance # Set variable equal to previous distance measurement
 
+      currentDandT = datetime.now().strftime("%Y-%m-%d %H:%M:%S") # Current date and time, Use this line for telegraf
+
       # Print current specific gravity value in grams per milliliter
-      print(current_specific_gravity)
-  
+      print("Current Specific Gravity: {current_specific_gravity} g/mL")
+
+      update_sheet('FermenTech', spec_grav, temperature)
+
+      output = currentDandT + f",{spec_grav}" + f",{temperature}"
+      print(output)
+
   except Exception as err:
     print(str(err))
 
