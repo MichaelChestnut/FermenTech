@@ -56,6 +56,10 @@ sudo pip3 install modbus-tk
    sudo apt install python3-lgpio
    ```
 
+- Install google sheets api:
+```
+sudo pip install --upgrade google-api-python-client oauth2client
+```
 
 ## Calibrating The Sensor
 - Execute calibration script:
