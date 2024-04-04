@@ -130,12 +130,12 @@ def main():
          if last_measurement = 0:
             sum = sum + distance 
           
-         elif initial_measurement - last_measurement >= 5.0 # IF THE MEASUREMENT IS NOT CLOSE TO THE PREVIOUS MEASUREMENT, DISREGARD IT AND DO NOT ADD INTO THE AVERAGE
+         elif initial_measurement - last_measurement >= 5.0: # IF THE MEASUREMENT IS NOT CLOSE TO THE PREVIOUS MEASUREMENT, DISREGARD IT AND DO NOT ADD INTO THE AVERAGE
             num_measurements = num_measurements - 1 # Decrement num measurements
             ignored_count = ignored_count + 1 # Incremenmt ignore count
             ignore_sum = ignore_sum + distance # sum ignored values for an ignored average
 
-         else 
+         else:
             sum = sum + distance 
 
          time.sleep(0.5) # Wait 500 ms
