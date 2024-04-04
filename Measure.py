@@ -108,7 +108,6 @@ def main():
       last_measurement = 0 # Initialize to zero
       initial_measurement = 0 # Initialize to zero
       average_distance = 0 # Initialize first "measurement" to zero
-      current_specific_gravity = initial_specific_gravity # Initialize current gravity to intial obtained from calibration
 
       for i in range(num_measurements):
          #00001100 bit 3 = 1 Sets trigger bit, triggers one measurement then resets bit 3 to 0; 12 in decimal
