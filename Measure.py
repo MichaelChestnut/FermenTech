@@ -83,7 +83,10 @@ def main():
      print("Please run Calibrate.py prior to executing this script.")
      sys.exit() # Terminate the script
 
-  calibrate = True  # correct spot???
+  previous_distance = 0 # Initialize first "measurement" to zero
+  average_distance = 0 # Initialize first "measurement" to zero
+  current_specific_gravity = initial_specific_gravity # Initialize current gravity to intial obtained from calibration
+  calibrate = True
 
   try:
     while True:
@@ -97,13 +100,17 @@ def main():
       # Display register values
 #      print("data = ", data)
 
-      # calibrate = True  # Wrong spot??
       sum = 0 # Initialize sum to 0 before loop
+      ignored_count = 0 # Initialize to zero
+      ignore_sum = 0 # Initialize to zero
+      num_measurements = 60 # Target measurements is 60
+      last_measurement = 0 # Initialize to zero
+      initial_measurement = 0 # Initialize to zero
       previous_distance = 0 # Initialize first "measurement" to zero
       average_distance = 0 # Initialize first "measurement" to zero
       current_specific_gravity = initial_specific_gravity # Initialize current gravity to intial obtained from calibration
       
-      for i in range(60):      
+      for i in range(num_measurements):      
          #00001100 bit 3 = 1 Sets trigger bit, triggers one measurement then resets bit 3 to 0; 12 in decimal
          master.execute(sensor_address, cst.WRITE_SINGLE_REGISTER, 0x08, output_value=12)
          time.sleep(0.5) # Wait 500 ms
@@ -116,18 +123,30 @@ def main():
          # Print distance value in mm
          #print(f"distance = {distance:.1f} mm")
 
+         if initial_measurement = 0:
+           initial_measurement = distance # Set initial measurement for data filtering   
 
-        # ADD CODE TO FIlTER DISTANCE MEASUREMENTS
-        # I.E IF THE MEASUREMENT IS NOT CLOSE TO THE PREVIOUS MEASUREMENT, DISREGARD IT AND DO NOT ADD INTO THE AVERAGE
-        
-         sum = sum + distance 
+         # FIlTER DISTANCE MEASUREMENTS
+         if last_measurement = 0:
+            sum = sum + distance 
+          
+         elif initial_measurement - last_measurement >= 5.0 # IF THE MEASUREMENT IS NOT CLOSE TO THE PREVIOUS MEASUREMENT, DISREGARD IT AND DO NOT ADD INTO THE AVERAGE
+            num_measurements = num_measurements - 1 # Decrement num measurements
+            ignored_count = ignored_count + 1 # Incremenmt ignore count
+            ignore_sum = ignore_sum + distance # sum ignored values for an ignored average
+
+         else 
+            sum = sum + distance 
 
          time.sleep(0.5) # Wait 500 ms
 
 
+      if ignore_count > 10:
+         avg_distance = ignore_sum / ignore_count # Set average distance to ignored measurement, since they are the majority and correct
 
-      
-      avg_distance = sum / 60 # Find the average distance
+      else:
+         avg_distance = sum / num_measurements # Find the average distance using normal measurements
+        
 
       if calibrate is True:
          first_distance = avg_distance # Record first measurement for later reference
@@ -139,15 +158,16 @@ def main():
       print(f"distance: {avg_distance:.1f} mm")
 
       # Read temperature register
-      temp = master.execute(sensor_address, cst.READ_HOLDING_REGISTERS, 0x06, 1)
-
-      time.sleep(0.2) # Wait 200 ms
+      temperature = master.execute(sensor_address, cst.READ_HOLDING_REGISTERS, 0x06, 1)
       
+      time.sleep(0.2) # Wait 200 ms
+
+      temp = temperature[0]
       # Divide by 10, one LSB is 0.1℃
-    #  temp =  temp / 10.0
+      temp =  temp / 10.0
 
       # Print temperature value in celsius
-    #  print(f"internal tempreture: {temp:.1f} C") 
+      print(f"internal tempreture: {temp:.1f} C") 
 
       # Find the difference in bobber height change i.e. (last measurement - reference measurement)
       distance_difference = previous_distance - reference_distance
@@ -161,13 +181,23 @@ def main():
         
       elif distance_difference >= 1.0:
 
-        # THIS IF STATEMENT WILL FIND THE CHANGE IN SPECIFIC GRAVITY BASED ON THE CHANGE IN BOBBER DISTANCE
-        current_specific_gravity = current_specific_gravity + .002831 
+         change_in_spec_grav = .002831 * (distance_difference)
         
-        # Set reference distance to most recent measurement because specific gravity has been updated
-        reference_distance = previous_distance
-      
-      previous_distance = avg_distance # Set variable equal to previous distance measurement
+         # THIS IF STATEMENT WILL FIND THE CHANGE IN SPECIFIC GRAVITY BASED ON THE CHANGE IN BOBBER DISTANCE
+         current_specific_gravity = current_specific_gravity + change_in_spec_grav
+        
+         # Set reference distance to most recent measurement because specific gravity has been updated
+         reference_distance = previous_distance
+
+      else:
+         pass
+
+
+      if ignore_count > 10:
+         pass # Do not update previous_distance variable
+
+      else:
+         previous_distance = avg_distance # Set variable equal to previous distance measurement
 
       currentDandT = datetime.now().strftime("%Y-%m-%d %H:%M:%S") # Current date and time, Use this line for telegraf
 
