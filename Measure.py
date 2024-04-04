@@ -137,6 +137,8 @@ def main():
          else:
             sum = sum + distance
 
+         last_measurement = distance
+         
          time.sleep(0.5) # Wait 500 ms
 
 
