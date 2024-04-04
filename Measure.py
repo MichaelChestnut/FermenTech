@@ -9,10 +9,11 @@ import serial
 import modbus_tk.defines as cst
 from modbus_tk import modbus_rtu
 from Calibrate import initial_specific_gravity # Importing the variable from Calibrate.py
-from googleapiclient.discovery import build  
-from httplib2 import Http  
-from oauth2client import file, client, tools  
-from oauth2client.service_account import ServiceAccountCredentials  
+from googleapiclient.discovery import build
+from httplib2 import Http
+from oauth2client import file, client, tools
+from oauth2client.service_account import ServiceAccountCredentials
+from datetime import datetime
 import datetime
 import random
 
@@ -43,10 +44,10 @@ ser = serial.Serial(port=serial_port,
 # Google spreadsheet ID, can be found in google sheet URL: https://docs.google.com/spreadsheets/d/SPREADSHEETID/edit#gid=0
 MY_SPREADSHEET_ID = '19bpbvqJYwY_Cslh-34vE48LasRu3WjDB2dd8Y_JoiOY'
 
-def update_sheet(sheetname, spec_grav, temperature):  
+def update_sheet(sheetname, spec_grav, temperature):
     # authentication, authorization step
     SCOPES = 'https://www.googleapis.com/auth/spreadsheets'
-    creds = ServiceAccountCredentials.from_json_keyfile_name( 
+    creds = ServiceAccountCredentials.from_json_keyfile_name(
             'FermentechKey.json', SCOPES)
     service = build('sheets', 'v4', http=creds.authorize(Http()))
 
@@ -103,14 +104,14 @@ def main():
       sum = 0 # Initialize sum to 0 before loop
       ignored_count = 0 # Initialize to zero
       ignore_sum = 0 # Initialize to zero
-      num_measurements = 60 # Target measurements is 60
+      num_measurements = 15 # Target measurements is 60
       last_measurement = 0 # Initialize to zero
       initial_measurement = 0 # Initialize to zero
       previous_distance = 0 # Initialize first "measurement" to zero
       average_distance = 0 # Initialize first "measurement" to zero
       current_specific_gravity = initial_specific_gravity # Initialize current gravity to intial obtained from calibration
-      
-      for i in range(num_measurements):      
+
+      for i in range(num_measurements):
          #00001100 bit 3 = 1 Sets trigger bit, triggers one measurement then resets bit 3 to 0; 12 in decimal
          master.execute(sensor_address, cst.WRITE_SINGLE_REGISTER, 0x08, output_value=12)
          time.sleep(0.5) # Wait 500 ms
@@ -123,43 +124,43 @@ def main():
          # Print distance value in mm
          #print(f"distance = {distance:.1f} mm")
 
-         if initial_measurement = 0:
-           initial_measurement = distance # Set initial measurement for data filtering   
+         if initial_measurement == 0:
+           initial_measurement = distance # Set initial measurement for data filtering
 
          # FIlTER DISTANCE MEASUREMENTS
-         if last_measurement = 0:
-            sum = sum + distance 
-          
+         if last_measurement == 0:
+            sum = sum + distance
+
          elif initial_measurement - last_measurement >= 5.0: # IF THE MEASUREMENT IS NOT CLOSE TO THE PREVIOUS MEASUREMENT, DISREGARD IT AND DO NOT ADD INTO THE AVERAGE
             num_measurements = num_measurements - 1 # Decrement num measurements
             ignored_count = ignored_count + 1 # Incremenmt ignore count
             ignore_sum = ignore_sum + distance # sum ignored values for an ignored average
 
          else:
-            sum = sum + distance 
+            sum = sum + distance
 
          time.sleep(0.5) # Wait 500 ms
 
 
-      if ignore_count > 10:
-         avg_distance = ignore_sum / ignore_count # Set average distance to ignored measurement, since they are the majority and correct
+      if ignored_count > 10:
+         avg_distance = ignore_sum / ignored_count # Set average distance to ignored measurement, since they are the majority and correct
 
       else:
          avg_distance = sum / num_measurements # Find the average distance using normal measurements
-        
+
 
       if calibrate is True:
          first_distance = avg_distance # Record first measurement for later reference
          reference_distance = avg_distance # Record a reference distance for later use
          previous_distance = avg_distance # make previous distance equal to first measurment to prevent error
          calibrate = False  # Set calibrate to false
-      
+
       # Print average distance value in mm
       print(f"distance: {avg_distance:.1f} mm")
 
       # Read temperature register
       temperature = master.execute(sensor_address, cst.READ_HOLDING_REGISTERS, 0x06, 1)
-      
+
       time.sleep(0.2) # Wait 200 ms
 
       temp = temperature[0]
@@ -193,20 +194,20 @@ def main():
          pass
 
 
-      if ignore_count > 10:
+      if ignored_count > 10:
          pass # Do not update previous_distance variable
 
       else:
          previous_distance = avg_distance # Set variable equal to previous distance measurement
 
-      currentDandT = datetime.now().strftime("%Y-%m-%d %H:%M:%S") # Current date and time, Use this line for telegraf
+      currentDandT = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") # Current date and time, Use this line for telegraf
 
       # Print current specific gravity value in grams per milliliter
-      print("Current Specific Gravity: {current_specific_gravity} g/mL")
+      print(f"Current Specific Gravity: {current_specific_gravity} g/mL")
 
-      update_sheet('FermenTech', spec_grav, temperature)
+      update_sheet('FermenTech', current_specific_gravity, temp)
 
-      output = currentDandT + f",{spec_grav}" + f",{temperature}"
+      output = currentDandT + f",{current_specific_gravity}" + f",{temp}"
       print(output)
 
   except Exception as err:
