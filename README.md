@@ -259,7 +259,8 @@ sudo systemctl start telegraf
 ```
 sudo systemctl status telegraf
 ```
-
+- If telegraf is running successfully, you should be able to log into the influxdb instance running on port 8086 and find your data.
+- Click the graphing icon on the left of the influx UI and find your data in the data explorer.
 
 ## Using Grafana to display data
 
