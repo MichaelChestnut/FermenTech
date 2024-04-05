@@ -204,7 +204,7 @@ sudo apt-get update && sudo apt-get install telegraf
 ```
 Sudo mv FermenTech /opt
 ```
-- Test telegraph user:
+- Test telegraph user. You should recieve standard output from your executable. If the output looks correct, proceed to next steps:
 ```
 sudo -u telegraf python3 /opt/FermenTech/Measure.py
 ```
