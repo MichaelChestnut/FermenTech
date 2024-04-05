@@ -151,7 +151,7 @@ echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https
 sudo apt-get update && sudo apt-get install telegraf
 ```
 
-- Access telegraf on device through a web search bar, Telegraf on port 8086
+- Access telegraf through InfluxDB on device through a web search bar, InfluxDB/Telegraf on port 8086
    - example: device_DNS_or_IPaddress:8086
 <img width="442" alt="Screen Shot 2024-04-01 at 4 58 25 PM" src="https://github.com/MichaelChestnut/FermenTech/assets/72172361/47c92893-3278-4157-8d8f-35af7faa402f">
 
