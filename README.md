@@ -229,12 +229,8 @@ PermissionError: [Errno 13] Permission denied: 'Calibrate.yaml'
       ```
       sudo chmod +r /opt/FermenTech/Calibrate.yaml
       ```
-   - If that does not work, use command:
-      ```
-      sudo chown telegraf:telegraf /opt/FermenTech/Calibrate.yaml
-      ```
   
-- To give telegraf i2c permissions:
+- To give telegraf i2c permissions (only needed if using i2c):
   ```
   sudo groupadd i2c
   ```
