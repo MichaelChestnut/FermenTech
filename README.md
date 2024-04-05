@@ -62,9 +62,9 @@ sudo pip install --upgrade google-api-python-client oauth2client
 ```
 
 ## Calibrating The Sensor
-- Execute calibration script:
+- Update initial specific gravity reading by following instructions in the calibration script:
 ```
-python3 Calibrate.py 
+nano Calibrate.py 
 ```
 
 - Follow instructions provided by script
