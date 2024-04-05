@@ -220,11 +220,12 @@ sudo -u telegraf python3 /opt/FermenTech/Measure.py
 - If error:
 
   File "/opt/FermenTech/Measure.py", line 74, in <module>
-   with open('Calibrate.yaml', 'r') as file:
+   with open('/opt/FermenTech/Calibrate.yaml', 'r') as file:
 PermissionError: [Errno 13] Permission denied: 'Calibrate.yaml'
 
+   - First, ensure full path is listed in the file
 
-   - Use command:
+   - If not, Use command:
       ```
       sudo chmod +r /opt/FermenTech/Calibrate.yaml
       ```
