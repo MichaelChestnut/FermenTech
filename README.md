@@ -202,11 +202,11 @@ sudo apt-get update && sudo apt-get install telegraf
 
 - Now that the configuration is done, Move working directory (containing measuring/executing code) into /opt:
 ```
-Sudo mv <directory> /opt
+Sudo mv FermenTech /opt
 ```
 - Test telegraph user:
 ```
-sudo -u telegraf python3 /opt/YOUR_DIRECTORY/YOUR_EXECUTABLE.py
+sudo -u telegraf python3 /opt/FermenTech/Measure.py
 ```
 
 - If error: serial.serialutil.SerialException: [Errno 13] could not open port /dev/ttyUSB0: [Errno 13] Permission denied: '/dev/ttyUSB0'
@@ -225,6 +225,10 @@ PermissionError: [Errno 13] Permission denied: 'Calibrate.yaml'
    - Use command:
       ```
       sudo chmod +r /opt/FermenTech/Calibrate.yaml
+      ```
+   - If that does not work, use command:
+      ```
+      sudo chown telegraf:telegraf /opt/FermenTech/Calibrate.yaml
       ```
   
 - To give telegraf i2c permissions:
