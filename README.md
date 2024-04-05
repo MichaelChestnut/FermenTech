@@ -136,6 +136,7 @@ sudo service influxdb status
 Official Telegraf Documentation: https://docs.influxdata.com/telegraf/v1/ 
 
 NOTE: Install InfluxDB prior to attempting telegraf steps
+
 NOTE: For telegraf to work, data must be printed to Standard Output. In this case, Data must be in CSV format.
 
 ### Telegraf installation:
