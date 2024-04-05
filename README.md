@@ -1,5 +1,6 @@
 # FermenTech Specific Gravity Sensor
 
+Note: This documentation and instructions assume the user has some experience with linux
 
 ## Components
 
