@@ -204,7 +204,11 @@ sudo apt-get update && sudo apt-get install telegraf
 ```
 Sudo mv <directory> /opt
 ```
-- Test telegraph user: sudo -u telegraf /opt/YOUR_DIRECTORY/YOUR_EXECUTABLE.py 
+- Test telegraph user:
+```
+sudo -u telegraf python3 /opt/YOUR_DIRECTORY/YOUR_EXECUTABLE.py
+```
+
 - If error: serial.serialutil.SerialException: [Errno 13] could not open port /dev/ttyUSB0: [Errno 13] Permission denied: '/dev/ttyUSB0'
    - Use command:
   ```
