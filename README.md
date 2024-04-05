@@ -301,6 +301,13 @@ Listed below are steps to begin setting up a dashboard to display the data from 
 
 
 ## Google Sheets
+Helpful Documentation:
+- https://developers.google.com/sheets/api/guides/concepts
+- https://developers.google.com/sheets/api/quickstart/python
+- https://developers.google.com/sheets/api/guides/authorizing
+- https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values/append
+- http://www.whatimade.today/log-sensor-data-straight-to-google-sheets-from-a-raspberry-pi-zero-all-the-python-code/
+- https://erikrood.com/Posts/py_gsheets.html
 
 This section will explain how to set up the google sheets api for cloud backup of data.
 
