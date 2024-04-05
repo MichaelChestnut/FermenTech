@@ -187,9 +187,12 @@ sudo apt-get update && sudo apt-get install telegraf
 
 
 
-- Erase auto generated config file in telegraf and paste in the example configuration found in this repository:
+- Erase auto generated config file in telegraf and paste in the example configuration found in this repository
 
 - Insert generated token into configuration file:
+
+<img width="1139" alt="Screen Shot 2024-04-05 at 3 44 45 PM" src="https://github.com/MichaelChestnut/FermenTech/assets/72172361/ea764147-9037-4b51-8176-a6db68ce5b3c">
+
   
 - Copy new config file to raspberry pi at /etc/telegraf/telegraf.d/CONFIG_NAME.conf:
 
