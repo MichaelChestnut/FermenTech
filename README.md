@@ -171,11 +171,21 @@ sudo apt-get update && sudo apt-get install telegraf
 
 - Click create configuration:
 <img width="1260" alt="Screen Shot 2024-04-01 at 5 02 05 PM" src="https://github.com/MichaelChestnut/FermenTech/assets/72172361/df2aa67c-ea8d-4a8a-a20f-aedfe66ba831">
-- Select the bucket and find exec source:
 
-- Generate config file:
+- Select the bucket and find execd source:
 
-- Copy generated token for later:
+<img width="587" alt="Screen Shot 2024-04-05 at 9 52 21 AM" src="https://github.com/MichaelChestnut/FermenTech/assets/72172361/d35eaab5-7a76-4484-ae75-c9660ed40104">
+
+- Generate config file by clicking save and test:
+
+<img width="1155" alt="Screen Shot 2024-04-05 at 9 55 11 AM" src="https://github.com/MichaelChestnut/FermenTech/assets/72172361/c8c1c37c-f8ec-4b8c-b073-a0ed116436c5">
+
+
+- Copy generated token for later and click Finish:
+
+<img width="1129" alt="Screen Shot 2024-04-05 at 9 55 57 AM" src="https://github.com/MichaelChestnut/FermenTech/assets/72172361/a6433859-f34a-4a4b-bc95-2158752f6fb5">
+
+
 
 - Erase auto generated config file in telegraf and paste in the example configuration found in this repository:
 
