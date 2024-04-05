@@ -214,6 +214,18 @@ sudo -u telegraf python3 /opt/YOUR_DIRECTORY/YOUR_EXECUTABLE.py
   ```
   sudo usermod -aG dialout telegraf
   ```
+
+- If error:
+
+  File "/opt/FermenTech/Measure.py", line 74, in <module>
+   with open('Calibrate.yaml', 'r') as file:
+PermissionError: [Errno 13] Permission denied: 'Calibrate.yaml'
+
+
+   - Use command:
+      ```
+      sudo chmod +r /opt/FermenTech/Calibrate.yaml
+      ```
   
 - To give telegraf i2c permissions:
   ```
