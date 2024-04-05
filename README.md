@@ -208,6 +208,8 @@ Sudo mv FermenTech /opt
 ```
 sudo -u telegraf python3 /opt/FermenTech/Measure.py
 ```
+<img width="643" alt="Screen Shot 2024-04-05 at 4 08 10 PM" src="https://github.com/MichaelChestnut/FermenTech/assets/72172361/49629c76-7b6f-4042-81cf-c592baa817b7">
+
 
 - If error: serial.serialutil.SerialException: [Errno 13] could not open port /dev/ttyUSB0: [Errno 13] Permission denied: '/dev/ttyUSB0'
    - Use command:
