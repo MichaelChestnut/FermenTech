@@ -112,7 +112,24 @@ python3 Measure.py
 ## Notes
 
 
+## Installing InfluxDB
+Official InfluxDB Documentation: https://docs.influxdata.com/influxdb/v2/
 
+- Get .deb file:
+```
+curl -O https://dl.influxdata.com/influxdb/releases/influxdb2_2.7.5-1_arm64.deb
+sudo dpkg -i influxdb2_2.7.5-1_arm64.deb
+```
+
+- Start InfluxDB:
+```
+sudo service influxdb start
+```
+
+- Check status of InfluxDB:
+```
+sudo service influxdb status
+```
 
 
 ## Running with Telegraf
