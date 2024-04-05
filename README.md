@@ -116,6 +116,7 @@ python3 Measure.py
 
 
 ## Running with Telegraf
+Official Telegraf Documentation: https://docs.influxdata.com/telegraf/v1/ 
 
 NOTE: For telegraf to work, data must be printed to Standard Output. In this case, Data must be in CSV format.
 
