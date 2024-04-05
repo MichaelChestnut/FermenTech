@@ -65,7 +65,7 @@ sudo pip install --upgrade google-api-python-client oauth2client
 ## Calibrating The Sensor
 - Update initial specific gravity reading by following instructions in the calibration script:
 ```
-nano Calibrate.py 
+nano Calibrate.yaml 
 ```
 
 - Follow instructions provided by script
@@ -91,7 +91,7 @@ cd FermenTech
 ```
 - Verify that permissions are set so that the script is executable by running: 
 ```
-chmod +x Calibrate.py
+chmod +x Calibrate.yaml
 ```
 ```
 chmod +x Measure.py
