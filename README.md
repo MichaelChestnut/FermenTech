@@ -308,7 +308,7 @@ Listed below are steps to begin setting up a dashboard to display the data from 
    <img width="1006" alt="Screen Shot 2024-03-20 at 1 35 44 PM" src="https://github.com/MichaelChestnut/FermenTech/assets/72172361/948a8666-9a43-4dc8-a0aa-d5ddc8a2874b">
 
 
-3. Fill out necessary fields, scroll to the bottom and click "Save and Test"
+3. Fill out necessary fields (especially the token field, which is the token you are given when you initially set up influxDB), scroll to the bottom and click "Save and Test"
 
    <img width="311" alt="Screen Shot 2024-03-20 at 1 38 08 PM" src="https://github.com/MichaelChestnut/FermenTech/assets/72172361/af99b935-34bb-4c5c-ac03-822e2bfa4289">
 
