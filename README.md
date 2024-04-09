@@ -21,7 +21,7 @@ Note: This documentation and instructions assume the user has some experience wi
    Sensor to gather distance and temperature measurements
 
 
-***BOCHEN 3296:***
+***MT3608:***
 
    Voltage booster to converse pi4's 5v output to a suitable 7v-15v for the URM14 
 
