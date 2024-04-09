@@ -318,7 +318,7 @@ Listed below are steps to begin setting up a dashboard to display the data from 
 6.
    1) Select type of visualization. This example is comparing Power Consumption of a load against time using MySQL, but you will use flux instead.
    2) Switch from builder to code under the query section.
-   3) Next, write your query.
+   3) Next, write your query (Documentation for writing a query: https://docs.influxdata.com/flux/v0/query-data/influxdb/)
    4) Next, hit run query.
    5) Finally, if you are satisfied with the look of your graph, click Apply.
    <img width="1361" alt="Screen Shot 2023-05-22 at 2 07 56 PM" src="https://github.com/NAU-IoT/CSVtoSQL/assets/72172361/ac0704a6-fa4c-4b92-be9d-83d15012e10a">
