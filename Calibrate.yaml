@@ -1,0 +1,7 @@
+# Please follow these steps to calibrate the FermenTech digital hydrometer
+# A physical hydrometer is necessary to calibrate this sensor
+# Insert the physical hydrometer into the brew
+# Read the hydrometer scale at the lowest point of the liquid's surface
+# Please change the value of the specific_gravity variable to the physical hydrometer reading to three decimal places (example: 1.000)
+
+specific_gravity: 0
