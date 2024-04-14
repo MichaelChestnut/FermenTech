@@ -109,7 +109,7 @@ def main():
      # Update the specific_gravity variable in calibrate file
      config['specific_gravity'] = initial_specific_gravity
      # Save the updated configuration back to the file
-     with open('Calibrate.yaml', 'w') as file:
+     with open('/opt/FermenTech/Calibrate.yaml', 'w') as file:
         yaml.dump(config, file)
 
   previous_distance = 0 # Initialize first "measurement" to zero
@@ -254,7 +254,7 @@ def main():
          # Update the specific_gravity variable in calibrate file
          config['specific_gravity'] = current_specific_gravity
          # Save the updated configuration back to the file
-         with open('Calibrate.yaml', 'w') as file:
+         with open('/opt/FermenTech/Calibrate.yaml', 'w') as file:
             yaml.dump(config, file)
 
 
